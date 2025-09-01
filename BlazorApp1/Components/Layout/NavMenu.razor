@@ -1,23 +1,22 @@
-<div class="top-row ps-3 navbar navbar-dark">
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="">BlazorApp1</a>
+
+        <div class="collapse navbar-collapse show">
+            <ul class="navbar-nav me-auto mb-2 mb-sm-0">
+                <li class="nav-item">
+                    <NavLink class="nav-link" href="/" Match="NavLinkMatch.All">
+                        Call Lookup By Number
+                    </NavLink>
+                </li>
+
+                <li class="nav-item">
+                    <NavLink class="nav-link" href="lookup-by-extension">
+                        Call Lookup By Extension
+                    </NavLink>
+                </li>
+            </ul>
+        </div>
     </div>
-</div>
+</nav>
 
-<input type="checkbox" title="Navigation menu" class="navbar-toggler" />
-
-<div class="nav-scrollable" onclick="document.querySelector('.navbar-toggler').click()">
-    <nav class="flex-column">
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="/" Match="NavLinkMatch.All">
-                <span class="bi bi-telephone" aria-hidden="true"></span> Call Lookup By Number
-            </NavLink>
-        </div>
-
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="lookup-by-extension">
-                <span class="bi bi-telephone-plus" aria-hidden="true"></span> Call Lookup By Extension
-            </NavLink>
-        </div>
-    </nav>
-</div>
