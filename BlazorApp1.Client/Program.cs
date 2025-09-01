@@ -5,10 +5,9 @@ var builder = WebAssemblyHostBuilder.CreateDefault(args);
 
 builder.Services.AddScoped(sp => new HttpClient
 {
-    BaseAddress = new Uri("https://jsonplaceholder.typicode.com/")
+    BaseAddress = new Uri("https://api.example.com/")
 });
 
-builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<IPostService, PostService>();
+builder.Services.AddScoped<ICallLookupService, CallLookupService>();
 
 await builder.Build().RunAsync();
