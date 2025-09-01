@@ -1,4 +1,5 @@
 using BlazorApp1.Client.Models;
+using System.Net.Http.Json;
 
 namespace BlazorApp1.Client.Services;
 
@@ -11,15 +12,13 @@ public class CallLookupService : ICallLookupService
         _httpClient = httpClient;
     }
 
-    public Task<CallInfo?> LookupByNumberAsync(string number)
+    public async Task<CallInfo?> LookupByNumberAsync(string number)
     {
-        // TODO: implement API call
-        return Task.FromResult<CallInfo?>(null);
+        return await _httpClient.GetFromJsonAsync<CallInfo>($"call-lookup/number/{number}");
     }
 
-    public Task<CallInfo?> LookupByExtensionAsync(string extension)
+    public async Task<CallInfo?> LookupByExtensionAsync(string extension)
     {
-        // TODO: implement API call
-        return Task.FromResult<CallInfo?>(null);
+        return await _httpClient.GetFromJsonAsync<CallInfo>($"call-lookup/extension/{extension}");
     }
 }
