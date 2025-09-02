@@ -1,18 +1,40 @@
+using BlazorApp1.Client.ApiClient;
+using BlazorApp1.Client.ApiClient.Interface;
 using BlazorApp1.Client.Pages;
-using BlazorApp1.Client.Services;
 using BlazorApp1.Components;
+using BlazorApp1.Manager;
+using BlazorApp1.Middleware;
+using BlazorApp1.Middleware.Interfaces;
+using HW.CentralConfig.Package.Core;
+using System.Runtime.CompilerServices;
+
 
 var builder = WebApplication.CreateBuilder(args);
+await builder.AddCentralConfigAsync();
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveWebAssemblyComponents();
 
-builder.Services.AddScoped(sp => new HttpClient
+builder.Services.AddHttpClient<ICallLookupService, CallLookupService>(options =>
 {
-    BaseAddress = new Uri("https://api.example.com/")
-});
-builder.Services.AddScoped<ICallLookupService, CallLookupService>();
+    options.BaseAddress = new Uri(builder.Configuration["Api:BaseUrl"] ?? "");
+}).AddHttpMessageHandler<TokenMiddleware>();
+
+builder.Services.AddSingleton<TokenMiddleware>();
+builder.Services.AddHttpClient<TokenService>(client => client.BaseAddress = new Uri(builder.Configuration["CentralConfig:BaseUrl"] ?? ""));
+builder.Services.AddSingleton<ITokenService>(sp => sp.GetRequiredService<TokenService>());
+builder.Services.AddScoped<ICallLookupApiClient, CallLookupApiClient>();
+
+
+builder.Services.AddMemoryCache();
+
+
+
+
+
+
+
 
 var app = builder.Build();
 
@@ -24,7 +46,6 @@ if (app.Environment.IsDevelopment())
 else
 {
     app.UseExceptionHandler("/Error", createScopeForErrors: true);
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
