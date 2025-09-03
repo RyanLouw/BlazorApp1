@@ -12,7 +12,7 @@
             <MudDatePicker @bind-Date="StartDate" Label="Start Date" />
         </MudItem>
         <MudItem xs="12" sm="3">
-            <MudDatePicker @bind-Date="End Date" Label="End Date" />
+            <MudDatePicker @bind-Date="EndDate" Label="End Date" />
         </MudItem>
         <MudItem xs="12" sm="3">
             <MudTextField @bind-Value="Number" Label="Number" Immediate="true" />
@@ -23,6 +23,7 @@
             </MudButton>
         </MudItem>
     </MudGrid>
+
 
     @if (IsLoading)
     {
