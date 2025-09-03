@@ -1,6 +1,7 @@
 ﻿using BlazorApp1.Client.ApiClient;
 using BlazorApp1.Client.ApiClient.Interface;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using MudBlazor.Services;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 
@@ -11,5 +12,6 @@ var builder = WebAssemblyHostBuilder.CreateDefault(args);
 // Keep DI registrations
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 builder.Services.AddScoped<ICallLookupApiClient, CallLookupApiClient>();
+builder.Services.AddMudServices();
 
 await builder.Build().RunAsync();

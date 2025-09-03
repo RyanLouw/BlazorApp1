@@ -4,81 +4,58 @@
 @using BlazorApp1.Client.Models
 @using Microsoft.AspNetCore.Components
 
+<MudContainer Class="mt-4">
+    <MudText Typo="Typo.h4">Call Lookup By Number</MudText>
 
-
-<h1>Call Lookup By Number</h1>
-
-<div class="container maxedContainer">
-    <!-- Filters Row -->
-    <div class="form-group row mb-3" style="gap:10px;">
-        <div class="col-sm-3">
-            <InputDate @bind-Value="StartDate" class="form-control" />
-        </div>
-        <div class="col-sm-3">
-            <InputDate @bind-Value="EndDate" class="form-control" />
-        </div>
-        <div class="col-sm-3">
-            <input class="form-control"
-                   placeholder="Number"
-                   @bind="Number"
-                   @bind:event="oninput" />
-        </div>
-        <div class="col-sm-3 d-flex align-items-center">
-            <button class="btn btn-primary w-100"
-                    type="button"
-                    @onclick="SearchNow"
-                    disabled="@(!CanSearch || IsLoading)">
+    <MudGrid Class="mb-4">
+        <MudItem xs="12" sm="3">
+            <MudDatePicker @bind-Date="StartDate" Label="Start Date" />
+        </MudItem>
+        <MudItem xs="12" sm="3">
+            <MudDatePicker @bind-Date="End Date" Label="End Date" />
+        </MudItem>
+        <MudItem xs="12" sm="3">
+            <MudTextField @bind-Value="Number" Label="Number" Immediate="true" />
+        </MudItem>
+        <MudItem xs="12" sm="3" Class="d-flex align-items-center">
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" Disabled="@(!CanSearch || IsLoading)" OnClick="SearchNow" FullWidth="true">
                 @(IsLoading ? "Searching..." : "Search")
-            </button>
+            </MudButton>
+        </MudItem>
+    </MudGrid>
 
-        </div>
-    </div>
-
-    <!-- Results Grid -->
-    <div class="table-responsive">
-        <table class="table table-striped table-bordered defaultTable">
-            <thead>
-                <tr>
-                    <th>Extension</th>
-                    <th>Call Time</th>
-                    <th>Duration</th>
-                    <th>Answered</th>
-                    <th>Number</th>
-                    <th>Incoming</th>
-                    <th>Recording</th>
-                </tr>
-            </thead>
-            <tbody>
-                @if (IsLoading)
-                {
-                    <tr><td colspan="7">Loading…</td></tr>
-                }
-                else if (Results.Count == 0)
-                {
-                    <tr><td colspan="7">No results</td></tr>
-                }
-                else
-                {
-                    @foreach (var r in Results)
-                    {
-                        <tr>
-                            <td>@r.Extension</td>
-                            <td>@r.CallDateTime.ToString("dd/MM/yyyy HH:mm:ss")</td>
-                            <td>@r.DurationMinutes</td>
-                            <td>@(r.IsAnswered ? "Answered" : "Not Answered")</td>
-                            <td>@r.CallerNumber</td>
-                            <td>@(r.Incoming )</td>
-                            <td>
-                                <button class="btn btn-sm btn-outline-secondary"
-                                        disabled="@( !r.IsAnswered )"
-                                        @onclick="() => DownloadAsync(r)">
-                                    Download Call
-                                </button>
-                            </td>
-                        </tr>
-                    }
-                }
-            </tbody>
-        </table>
-    </div>
-</div>
+    @if (IsLoading)
+    {
+        <MudProgressLinear Indeterminate Class="mb-4" />
+    }
+    else
+    {
+        <MudTable Items="Results" Hover="true" Bordered="true" Dense="true">
+            <HeaderContent>
+                <MudTh>Extension</MudTh>
+                <MudTh>Call Time</MudTh>
+                <MudTh>Duration</MudTh>
+                <MudTh>Answered</MudTh>
+                <MudTh>Number</MudTh>
+                <MudTh>Incoming</MudTh>
+                <MudTh>Recording</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="Extension">@context.Extension</MudTd>
+                <MudTd DataLabel="Call Time">@context.CallDateTime.ToString("dd/MM/yyyy HH:mm:ss")</MudTd>
+                <MudTd DataLabel="Duration">@context.DurationMinutes</MudTd>
+                <MudTd DataLabel="Answered">@(context.IsAnswered ? "Answered" : "Not Answered")</MudTd>
+                <MudTd DataLabel="Number">@context.CallerNumber</MudTd>
+                <MudTd DataLabel="Incoming">@context.Incoming</MudTd>
+                <MudTd DataLabel="Recording">
+                    <MudButton Variant="Variant.Outlined" Size="Size.Small" Disabled="@(!context.IsAnswered)" OnClick="@(() => DownloadAsync(context))">
+                        Download Call
+                    </MudButton>
+                </MudTd>
+            </RowTemplate>
+            <NoRecordsContent>
+                <MudText>No results</MudText>
+            </NoRecordsContent>
+        </MudTable>
+    }
+</MudContainer>

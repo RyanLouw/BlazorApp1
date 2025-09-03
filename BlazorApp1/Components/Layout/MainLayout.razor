@@ -1,13 +1,13 @@
 ﻿@inherits LayoutComponentBase
 
-<div class="page">
+<MudLayout>
     <NavMenu />
-    <main>
-        <article class="content px-4">
+    <MudMainContent>
+        <MudContainer Class="mt-4">
             @Body
-        </article>
-    </main>
-</div>
+        </MudContainer>
+    </MudMainContent>
+</MudLayout>
 
 <div id="blazor-error-ui">
     An unhandled error has occurred.

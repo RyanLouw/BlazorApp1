@@ -7,6 +7,7 @@ using BlazorApp1.Middleware;
 using BlazorApp1.Middleware.Interfaces;
 using HW.CentralConfig.Package.Core;
 using System.Runtime.CompilerServices;
+using MudBlazor.Services;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -30,6 +31,7 @@ builder.Services.AddScoped<ICallLookupApiClient, CallLookupApiClient>();
 
 
 builder.Services.AddMemoryCache();
+builder.Services.AddMudServices();
 
 
 
