@@ -67,7 +67,7 @@
                             <td>@r.DurationMinutes</td>
                             <td>@(r.IsAnswered ? "Answered" : "Not Answered")</td>
                             <td>@r.CallerNumber</td>
-                            <td>@(r.Incoming ? "Yes" : "No")</td>
+                            <td>@(r.Incoming )</td>
                             <td>
                                 <button class="btn btn-sm btn-outline-secondary"
                                         disabled="@( !r.IsAnswered )"
