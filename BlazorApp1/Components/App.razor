@@ -13,12 +13,35 @@
 </head>
 
 <body>
-    <MudThemeProvider />
-    <MudDialogProvider />
-    <MudSnackbarProvider />
-    <Routes />
+    <MudThemeProvider Theme="@_theme">
+        <MudThemeManager />
+        <MudDialogProvider />
+        <MudSnackbarProvider />
+        <Routes />
+    </MudThemeProvider>
     <script src="_content/MudBlazor/MudBlazor.min.js"></script>
     <script src="_framework/blazor.web.js"></script>
 </body>
 
 </html>
+
+@code {
+    private readonly MudTheme _theme = new()
+    {
+        Palette = new Palette
+        {
+            Primary = "#1b6ec2"
+        },
+        PaletteDark = new PaletteDark
+        {
+            Primary = "#1b6ec2"
+        },
+        Typography = new Typography
+        {
+            Default = new Default
+            {
+                FontSize = "16px"
+            }
+        }
+    };
+}
