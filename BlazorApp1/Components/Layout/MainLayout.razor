@@ -1,13 +1,20 @@
 ﻿@inherits LayoutComponentBase
 
-<div class="page">
-    <NavMenu />
-    <main>
-        <article class="content px-4">
+<MudLayout>
+    <MudAppBar Color="Color.Primary" Elevation="1">
+        <MudText Typo="Typo.h6">BlazorApp1</MudText>
+    </MudAppBar>
+
+    <MudDrawer Variant="DrawerVariant.Mini" Elevation="1" Open="true">
+        <NavMenu />
+    </MudDrawer>
+
+    <MudMainContent>
+        <div class="p-4">
             @Body
-        </article>
-    </main>
-</div>
+        </div>
+    </MudMainContent>
+</MudLayout>
 
 <div id="blazor-error-ui">
     An unhandled error has occurred.
