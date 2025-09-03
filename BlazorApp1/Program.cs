@@ -7,6 +7,7 @@ using BlazorApp1.Middleware;
 using BlazorApp1.Middleware.Interfaces;
 using HW.CentralConfig.Package.Core;
 using System.Runtime.CompilerServices;
+using MudBlazor.Services;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +17,7 @@ await builder.AddCentralConfigAsync();
 builder.Services.AddRazorComponents()
     .AddInteractiveWebAssemblyComponents();
 builder.Services.AddControllers();
+builder.Services.AddMudServices();
 
 
 builder.Services.AddHttpClient<ICallLookupService, CallLookupService>(options =>

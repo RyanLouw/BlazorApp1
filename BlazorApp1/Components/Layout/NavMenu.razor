@@ -1,22 +1,8 @@
-<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="">BlazorApp1</a>
-
-        <div class="collapse navbar-collapse show">
-            <ul class="navbar-nav me-auto mb-2 mb-sm-0">
-                <li class="nav-item">
-                    <NavLink class="nav-link" href="/" Match="NavLinkMatch.All">
-                        Call Lookup By Number
-                    </NavLink>
-                </li>
-
-                <li class="nav-item">
-                    <NavLink class="nav-link" href="lookup-by-extension">
-                        Call Lookup By Extension
-                    </NavLink>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
+<MudStack Row Spacing="2" AlignItems="AlignItems.Center">
+    <MudNavLink Href="/" Match="NavLinkMatch.All" Color="Color.Inherit">
+        Call Lookup By Number
+    </MudNavLink>
+    <MudNavLink Href="lookup-by-extension" Color="Color.Inherit">
+        Call Lookup By Extension
+    </MudNavLink>
+</MudStack>
